@@ -12,11 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.upec.androidtemplate20192020.Server.ClientSocket;
+import com.upec.androidtemplate20192020.Server.ServeurSocket;
+
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ServeurSocket s = new ServeurSocket();
+        ClientSocket c = new ClientSocket();
+        s.start();
+        c.start();
         Dessin d = findViewById(R.id.dessin);
         Button b = findViewById(R.id.button);
         if(savedInstanceState != null)
