@@ -1,6 +1,5 @@
 package com.upec.androidtemplate20192020.Server;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -16,15 +15,15 @@ public class ServeurSocket extends Thread {
     @Override
     public void run() {
         try {
-            ServerSocket listener = new ServerSocket(PORT);
+            while(true)
+            {
+                ServerSocket listener = new ServerSocket(PORT);
+                Socket client = listener.accept();
+                Log.d("MSGGGG", "Client accepted");
+                new HandleClient(client).start();
 
-            Log.d("MSG", "Waiting client connection");
-            Socket client = listener.accept();
-            Log.d("MSG", "Client accepted");
-            PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-            BufferedReader input = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            }
         } catch (IOException e) {
-            Log.d("MSG", "Client accejpted");
             e.printStackTrace();
         }
     }

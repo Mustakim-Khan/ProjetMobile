@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Server.ClientSocket"
+    tools:context=".Client.ClientSocket"
     tools:showIn="@layout/activity_client">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
