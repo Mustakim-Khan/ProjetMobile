@@ -12,11 +12,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.upec.androidtemplate20192020.Client.ClientSocket;
+import com.upec.androidtemplate20192020.Server.ServeurSocket;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+    public static ArrayList<String> userList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new ServeurSocket().start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ClientSocket c = new ClientSocket();
+                c.start();
+            }
+        }).start();
         Dessin d = findViewById(R.id.dessin);
         Button b = findViewById(R.id.button);
         if(savedInstanceState != null)
@@ -28,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
+                Log.d("MSGGGG", String.valueOf(userList.isEmpty()));
+
                 Intent intent = new Intent(MainActivity.this, Palette.class);
                 startActivityForResult(intent,  1);
             }
@@ -75,5 +92,6 @@ public class MainActivity extends AppCompatActivity {
         outState.putParcelableArrayList("liste", d.points);
         super.onSaveInstanceState(outState);
     }
+
 
 }
