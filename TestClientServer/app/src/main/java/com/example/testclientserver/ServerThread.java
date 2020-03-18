@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class MyThread implements Runnable{
+public class ServerThread implements Runnable {
     @Override
     public void run(){
         try {
@@ -14,7 +14,7 @@ public class MyThread implements Runnable{
             while(true){
                 Socket s = ss.accept();
                 System.out.println("Réception d'un client");
-                new HandleClient(s);
+                HandleGame.addClient(new HandleClient(s));
             }
         } catch (IOException e){
             System.out.println((e.getMessage()));
