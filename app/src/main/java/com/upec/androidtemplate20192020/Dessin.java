@@ -15,57 +15,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-class Point implements Parcelable {
-    float x, y, thickness;
-    int color;
-
-    public Point(float coord_x, float coord_y, float t, int c)
-    {
-        x = coord_x;
-        y = coord_y;
-        thickness = t;
-        color = c;
-    }
-
-    protected Point(Parcel in) {
-        x = in.readFloat();
-        y = in.readFloat();
-        thickness = in.readFloat();
-        color = in.readInt();
-    }
-
-    public static final Creator<Point> CREATOR = new Creator<Point>() {
-        @Override
-        public Point createFromParcel(Parcel in) {
-            return new Point(in);
-        }
-
-        @Override
-        public Point[] newArray(int size) {
-            return new Point[size];
-        }
-    };
-
-    public float getThickness() {
-        return thickness;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeFloat(x);
-        dest.writeFloat(y);
-        dest.writeInt(color);
-    }
-}
 public class Dessin extends View {
-    ArrayList<Point> points;
-    float thickness;
-    int color;
+    public ArrayList<Point> points;
+    public float thickness;
+    public int color;
     public Dessin(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         points = new ArrayList<>();
