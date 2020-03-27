@@ -12,16 +12,80 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
+class Point implements Parcelable, Serializable {
+    float x, y, thickness;
+    int color;
+
+    public Point(float coord_x, float coord_y, float t, int c)
+    {
+        x = coord_x;
+        y = coord_y;
+        thickness = t;
+        color = c;
+    }
+
+    protected Point(Parcel in) {
+        x = in.readFloat();
+        y = in.readFloat();
+        thickness = in.readFloat();
+        color = in.readInt();
+    }
+
+    public static final Creator<Point> CREATOR = new Creator<Point>() {
+        @Override
+        public Point createFromParcel(Parcel in) {
+            return new Point(in);
+        }
+
+        @Override
+        public Point[] newArray(int size) {
+            return new Point[size];
+        }
+    };
+
+    public float getThickness() {
+        return thickness;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeFloat(x);
+        dest.writeFloat(y);
+        dest.writeInt(color);
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public int getColor() {
+        return color;
+    }
+}
+
 public class Dessin extends View {
-    public ArrayList<Point> points;
-    public float thickness;
-    public int color;
+    static ArrayList<Point> points;
+    private static ArrayList<Point> pointsNonAdd;
+    float thickness;
+    int color;
+
     public Dessin(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         points = new ArrayList<>();
+        pointsNonAdd = new ArrayList<>();
+        //pointsNonAdd.add(new Point(1,1,1,Color.TRANSPARENT));
         thickness = 15;
         color = Color.BLACK;
     }
@@ -31,13 +95,14 @@ public class Dessin extends View {
         super.onDraw(canvas);
         Paint paint = new Paint();
         Point pt = null;
-        for(Point p : points)
+        ArrayList<Point> listPoint = (ArrayList<Point>) points.clone() ;
+        for(Point p : listPoint)
         {
             if(pt !=null)
             {
                 canvas.drawLine(pt.x, pt.y, p.x, p.y, paint);
             }
-            Log.d("Thickness in onDraw", Float.toString(p.thickness));
+            //Log.d("Thickness in onDraw", Float.toString(p.thickness));
             paint.setStrokeWidth(p.thickness);
             paint.setColor(p.color);
             canvas.drawPoint(p.x, p.y, paint);
@@ -47,27 +112,41 @@ public class Dessin extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public synchronized boolean onTouchEvent(MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_UP)
         {
-            points.add(new Point(event.getX(), event.getY(), thickness, Color.TRANSPARENT));
+            //points.add(new Point(event.getX(), event.getY(), thickness, Color.TRANSPARENT));
+            pointsNonAdd.add(new Point(event.getX(), event.getY(), thickness, Color.TRANSPARENT));
+
         }
         else
         {
-            points.add(new Point(event.getX(), event.getY(), thickness, color));
+            //points.add(new Point(event.getX(), event.getY(), thickness, color));
+            pointsNonAdd.add(new Point(event.getX(), event.getY(), thickness, color));
+
         }
         invalidate();
         return true;
     }
 
-    public ArrayList<Point> getPoints()
-    {
-        return points;
+    static synchronized public void setPoints(ArrayList<Point> p){
+        points = p;
     }
 
-    public void setPoints(ArrayList<Point> points)
-    {
-        this.points = points;
+    static synchronized public ArrayList<Point> getPointsNonAdd() {
+        return pointsNonAdd;
     }
 
+    static synchronized public void removePointsNonAdd(int i){
+        pointsNonAdd.remove(i);
+    }
+
+    static synchronized public void addPoint(Point p){
+        points.add(p);
+        //System.out.println(" local nb points : " + points.size());
+    }
+
+    static synchronized public int sizePointsNonAdd(){
+        return pointsNonAdd.size();
+    }
 }

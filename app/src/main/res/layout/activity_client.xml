@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Client">
+    tools:context=".MainActivity">
 
     <com.upec.androidtemplate20192020.Dessin
         android:id="@+id/dessin"
@@ -18,6 +18,5 @@
         android:text="Epaisseur"
         app:layout_anchor="@+id/dessin"
         app:layout_anchorGravity="bottom|center" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Client.class);
-                intent.putExtra("client", "127.0.0.1");
+                intent.putExtra("client", "localhost" );
                 startActivity(intent);
             }
         });
@@ -35,5 +37,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }

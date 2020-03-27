@@ -3,17 +3,12 @@ package com.upec.androidtemplate20192020;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Palette extends AppCompatActivity {
 
@@ -32,7 +27,7 @@ public class Palette extends AppCompatActivity {
                     //in.putExtra("color", Integer.valueOf(color.getText().toString()));
                     in.putExtra("thickness", Float.valueOf(thickness.getText().toString()));
                 } catch (NumberFormatException e) {};
-                Log.d("thick in Palette", thickness.getText().toString());
+                //Log.d("thick in Palette", thickness.getText().toString());
                 setResult(Activity.RESULT_OK, in);
                 finish();
             }
