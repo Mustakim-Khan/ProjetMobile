@@ -19,6 +19,7 @@ public class Palette extends AppCompatActivity {
         setContentView(R.layout.activity_palette);
         Intent intent = getIntent() ;
         final float t = intent.getFloatExtra("thickness", 15);
+        final int c = intent.getIntExtra("color", Color.BLACK);
         Button b = findViewById(R.id.ok);
         TextView thickness = findViewById(R.id.thickness);
         thickness.setHint(String.valueOf(t));
@@ -29,6 +30,7 @@ public class Palette extends AppCompatActivity {
                 Intent in = new Intent();
                 try {
                     in.putExtra("thickness", Float.valueOf(thickness.getText().toString()));
+                    in.putExtra("color", c);
                 } catch (NumberFormatException e) {};
                 setResult(Activity.RESULT_OK, in);
                 finish();
@@ -39,6 +41,7 @@ public class Palette extends AppCompatActivity {
         Button vert = findViewById(R.id.buttonvert);
         Button rouge = findViewById(R.id.buttonrouge);
         Button noir = findViewById(R.id.buttonnoir);
+        Button gomme = findViewById(R.id.buttongomme);
 
         bleu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +86,18 @@ public class Palette extends AppCompatActivity {
                 finish();
             }
         });
+
+        gomme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent();
+                in.putExtra("thickness", t);
+                in.putExtra("color", Color.WHITE);
+                setResult(Activity.RESULT_OK, in);
+                finish();
+            }
+        });
+
     }
 
 }

@@ -83,11 +83,9 @@ public class Dessin extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
-        ArrayList<Point> listPoint = (ArrayList<Point>) points.clone() ;
-        for(Point p : listPoint)
-        {
-            if(pt !=null)
-            {
+        ArrayList<Point> listPoint = (ArrayList<Point>) points.clone();
+        for (Point p : listPoint) {
+            if (pt != null) {
                 canvas.drawLine(pt.x, pt.y, p.x, p.y, paint);
             }
             paint.setStrokeWidth(p.thickness);
@@ -100,13 +98,10 @@ public class Dessin extends View {
 
     @Override
     public synchronized boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP)
-        {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             pointsNonAdd.add(new Point(event.getX(), event.getY(), thickness, Color.TRANSPARENT));
 
-        }
-        else
-        {
+        } else {
             pointsNonAdd.add(new Point(event.getX(), event.getY(), thickness, color));
 
         }
@@ -114,7 +109,7 @@ public class Dessin extends View {
         return true;
     }
 
-    static synchronized public void setPoints(ArrayList<Point> p){
+    static synchronized public void setPoints(ArrayList<Point> p) {
         points = p;
     }
 
@@ -122,15 +117,11 @@ public class Dessin extends View {
         return pointsNonAdd;
     }
 
-    static synchronized public void removePointsNonAdd(int i){
+    static synchronized public void removePointsNonAdd(int i) {
         pointsNonAdd.remove(i);
     }
 
-    static synchronized public void addPoint(Point p){
+    static synchronized public void addPoint(Point p) {
         points.add(p);
-    }
-
-    public static ArrayList<Point> getPoints() {
-        return points;
     }
 }

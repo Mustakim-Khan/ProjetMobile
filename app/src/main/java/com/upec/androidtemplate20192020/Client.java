@@ -47,6 +47,7 @@ public class Client extends AppCompatActivity {
                 Dessin d = findViewById(R.id.dessin);
                 Intent intent = new Intent(Client.this, Palette.class);
                 intent.putExtra("thickness", d.thickness);
+                intent.putExtra("color", d.color);
                 startActivityForResult(intent, 1);
             }
         });
