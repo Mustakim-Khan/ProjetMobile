@@ -13,9 +13,6 @@ public class ServerThread implements Runnable {
 
             while(true){
                 Socket s = ss.accept();
-                // HandleGame.addPoint(new Point(50,50,50, Color.BLACK));
-                // HandleGame.addPoint(new Point(200,200,50, Color.BLACK));
-                // HandleGame.addPoint(new Point(200,300,50, Color.BLACK));
                 HandleClient hc = new HandleClient(s) ;
                 hc.start();
                 HandleGame.addClient(hc);

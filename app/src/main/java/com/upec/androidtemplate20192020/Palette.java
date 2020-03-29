@@ -2,6 +2,7 @@ package com.upec.androidtemplate20192020;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,18 +17,68 @@ public class Palette extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_palette);
+        Intent intent = getIntent() ;
+        final float t = intent.getFloatExtra("thickness", 15);
         Button b = findViewById(R.id.ok);
-        //final TextView color = findViewById(R.id.color);
-        final TextView thickness = findViewById(R.id.thickness);
+        TextView thickness = findViewById(R.id.thickness);
+        thickness.setHint(String.valueOf(t));
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TextView thickness = findViewById(R.id.thickness);
                 Intent in = new Intent();
                 try {
-                    //in.putExtra("color", Integer.valueOf(color.getText().toString()));
                     in.putExtra("thickness", Float.valueOf(thickness.getText().toString()));
                 } catch (NumberFormatException e) {};
-                //Log.d("thick in Palette", thickness.getText().toString());
+                setResult(Activity.RESULT_OK, in);
+                finish();
+            }
+        });
+
+        Button bleu = findViewById(R.id.buttonbleu);
+        Button vert = findViewById(R.id.buttonvert);
+        Button rouge = findViewById(R.id.buttonrouge);
+        Button noir = findViewById(R.id.buttonnoir);
+
+        bleu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent();
+                in.putExtra("thickness", t);
+                in.putExtra("color", Color.BLUE);
+                setResult(Activity.RESULT_OK, in);
+                finish();
+            }
+        });
+
+        noir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent();
+                in.putExtra("thickness", t);
+                in.putExtra("color", Color.BLACK);
+                setResult(Activity.RESULT_OK, in);
+                finish();
+            }
+        });
+
+        rouge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent();
+                in.putExtra("thickness", t);
+                in.putExtra("color", Color.RED);
+                setResult(Activity.RESULT_OK, in);
+                finish();
+            }
+        });
+
+        vert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent();
+                in.putExtra("thickness", t);
+                in.putExtra("color", Color.GREEN);
                 setResult(Activity.RESULT_OK, in);
                 finish();
             }

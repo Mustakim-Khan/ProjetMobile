@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -46,9 +45,6 @@ class Point implements Parcelable, Serializable {
         }
     };
 
-    public float getThickness() {
-        return thickness;
-    }
 
     @Override
     public int describeContents() {
@@ -62,17 +58,6 @@ class Point implements Parcelable, Serializable {
         dest.writeInt(color);
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public int getColor() {
-        return color;
-    }
 }
 
 public class Dessin extends View {
@@ -85,7 +70,6 @@ public class Dessin extends View {
         super(context, attrs);
         points = new ArrayList<>();
         pointsNonAdd = new ArrayList<>();
-        //pointsNonAdd.add(new Point(1,1,1,Color.TRANSPARENT));
         thickness = 15;
         color = Color.BLACK;
     }
@@ -102,7 +86,6 @@ public class Dessin extends View {
             {
                 canvas.drawLine(pt.x, pt.y, p.x, p.y, paint);
             }
-            //Log.d("Thickness in onDraw", Float.toString(p.thickness));
             paint.setStrokeWidth(p.thickness);
             paint.setColor(p.color);
             canvas.drawPoint(p.x, p.y, paint);
@@ -115,13 +98,11 @@ public class Dessin extends View {
     public synchronized boolean onTouchEvent(MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_UP)
         {
-            //points.add(new Point(event.getX(), event.getY(), thickness, Color.TRANSPARENT));
             pointsNonAdd.add(new Point(event.getX(), event.getY(), thickness, Color.TRANSPARENT));
 
         }
         else
         {
-            //points.add(new Point(event.getX(), event.getY(), thickness, color));
             pointsNonAdd.add(new Point(event.getX(), event.getY(), thickness, color));
 
         }
@@ -143,10 +124,9 @@ public class Dessin extends View {
 
     static synchronized public void addPoint(Point p){
         points.add(p);
-        //System.out.println(" local nb points : " + points.size());
     }
 
-    static synchronized public int sizePointsNonAdd(){
-        return pointsNonAdd.size();
+    public static ArrayList<Point> getPoints() {
+        return points;
     }
 }

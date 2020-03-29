@@ -14,18 +14,12 @@ public class HandleGame {
         return client;
     }
 
-    public static int sizeClient(){
-        return client.size();
-    }
-
     public synchronized static ArrayList<Point> getPoints() {
         return points;
     }
 
     public synchronized static void addPoint (Point p){
         points.add(p);
-        //System.out.println(" Serveur nb points : " + points.size());
-        //System.out.println("point ajouté");
     }
 
 }

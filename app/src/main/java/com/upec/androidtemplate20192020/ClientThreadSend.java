@@ -11,17 +11,14 @@ public class ClientThreadSend extends Thread {
 
     private Socket s ;
     private String host ;
-    // private ObjectInputStream ois ;
     private ObjectOutputStream oos ;
     private ArrayList<Point> points = new ArrayList<>();
-    //private Dessin d ;
     private boolean ready = false ;
     private boolean erreurConnexion = false ;
 
 
     public ClientThreadSend(String string) {
         host = string ;
-        //this.d = d ;
     }
 
     @Override
@@ -31,7 +28,6 @@ public class ClientThreadSend extends Thread {
             this.s = socket;
             ready = true ;
             oos = new ObjectOutputStream(s.getOutputStream());
-            //ois = new ObjectInputStream(s.getInputStream());
             init();
             while (true){
                 execute();
@@ -48,8 +44,6 @@ public class ClientThreadSend extends Thread {
         if (Dessin.getPointsNonAdd().size() > 0) {
             try {
                 oos.writeInt(0);
-                //oos.flush();
-                //ois.readInt();
                 oos.writeObject(Dessin.getPointsNonAdd().get(0));
                 oos.flush();
                 System.out.println("Client Send : envoie 0 et le point");

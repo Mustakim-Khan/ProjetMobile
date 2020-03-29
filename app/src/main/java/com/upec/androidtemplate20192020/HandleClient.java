@@ -48,8 +48,6 @@ public class HandleClient extends Thread {
 
     private synchronized void receivePoint(){
         try {
-            //oos.writeInt(0);
-            //oos.flush();
             System.out.println("Serveur : en attente d'un point");
             Point p = (Point) ois.readObject();
             HandleGame.addPoint(p);

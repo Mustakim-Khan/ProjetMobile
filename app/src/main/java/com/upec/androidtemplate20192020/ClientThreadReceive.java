@@ -10,7 +10,6 @@ public class ClientThreadReceive extends Thread {
 
     private Socket s ;
     private ObjectInputStream ois ;
-    //private ObjectOutputStream oos ;
 
 
     public ClientThreadReceive(Socket s ) {
