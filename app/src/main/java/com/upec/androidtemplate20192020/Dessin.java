@@ -79,6 +79,10 @@ public class Dessin extends View {
         super.onDraw(canvas);
         Paint paint = new Paint();
         Point pt = null;
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
         ArrayList<Point> listPoint = (ArrayList<Point>) points.clone() ;
         for(Point p : listPoint)
         {
