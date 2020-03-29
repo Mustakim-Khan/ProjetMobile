@@ -22,9 +22,7 @@ public class Client extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             d.thickness = savedInstanceState.getFloat("thickness");
-            //Log.d("thick in SAVED", Float.toString(savedInstanceState.getFloat("thickness")));
             d.setPoints(savedInstanceState.<Point>getParcelableArrayList("liste"));
-            //client = savedInstanceState.getBoolean("client");
         }
 
         //if(!client) {
