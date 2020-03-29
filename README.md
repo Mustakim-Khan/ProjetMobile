@@ -1,0 +1,1 @@
+Problème de concurrence, il faut toucher l'écran pour que le dessin des autres joueurs s'affichent.
